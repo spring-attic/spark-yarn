@@ -15,7 +15,7 @@
     </parent>
 
 	<properties>
-		<spark.version>1.6.2</spark.version>
+		<spark.version>1.6.3</spark.version>
 		<spring-data-hadoop.version>2.4.0.RELEASE</spring-data-hadoop.version>
 	</properties>
 
@@ -32,27 +32,27 @@
 				<version>${spark.version}</version>
 				<exclusions>
 					<exclusion>
-						<groupId> org.apache.hadoop</groupId>
+						<groupId>org.apache.hadoop</groupId>
 						<artifactId>hadoop-client</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId> org.apache.hadoop</groupId>
+						<groupId>org.apache.hadoop</groupId>
 						<artifactId>hadoop-yarn-common</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId> org.apache.hadoop</groupId>
+						<groupId>org.apache.hadoop</groupId>
 						<artifactId>hadoop-yarn-client</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId> org.apache.hadoop</groupId>
+						<groupId>org.apache.hadoop</groupId>
 						<artifactId>hadoop-mapreduce-client-app</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId> org.apache.hadoop</groupId>
+						<groupId>org.apache.hadoop</groupId>
 						<artifactId>hadoop-yarn-server-web-proxy</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId> org.apache.hadoop</groupId>
+						<groupId>org.apache.hadoop</groupId>
 						<artifactId>hadoop-yarn-api</artifactId>
 					</exclusion>
 					<exclusion>
@@ -78,7 +78,7 @@
 			</dependency>
 		</dependencies>
     </dependencyManagement>
-<profiles>
+	<profiles>
 		<profile>
 			<id>spring</id>
 			<repositories>
