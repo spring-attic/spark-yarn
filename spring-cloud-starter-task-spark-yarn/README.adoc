@@ -1,8 +1,10 @@
 //tag::ref-doc[]
 = Spark YARN Task
 
-This task is intended to launch a Spark application. The task submits the Spark application to a YARN cluster
-for execution. This task is appropriate for a deployment that has access to a Hadoop YARN cluster. The Spark application jar and the Spark Assembly jar should be referenced from an HDFS location.
+This task is intended to launch a Spark application.
+The task submits the Spark application to a YARN cluster for execution.
+This task is appropriate for a deployment that has access to a Hadoop YARN cluster.
+The Spark application jar and the Spark Assembly jar should be referenced from an HDFS location.
 
 == Options
 
@@ -20,5 +22,42 @@ $$spark.num-executors$$:: $$The number of executors to use.$$ *($$Integer$$, def
 $$spark.resource-archives$$:: $$A comma separated list of archive files to be included with the app submission.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.resource-files$$:: $$A comma separated list of files to be included with the application submission.$$ *($$String$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
+
+== Building with Maven
+
+```
+$ ./mvnw clean install -PgenerateApps
+$ cd apps/spark-yarn-task
+$ ./mvnw clean package
+```
+
+== Example
+
+The following example assumes you have Hadoop cluster available and have downloaded the Spark 1.6.3 for Hadoop 2.6 release.
+
+Copy the spark-assembly jar to HDFS, we're using a directory named `/app/spark`
+
+```
+hadoop fs -copyFromLocal spark-assembly-1.6.3-hadoop2.6.0.jar /app/spark/spark-assembly-1.6.3-hadoop2.6.0.jar
+```
+
+Copy your Spark app jar to HDFS, we are using a jar named `spark-pi-test.jar` in this example
+
+```
+hadoop fs -copyFromLocal spark-pi-test.jar /app/spark/spark-pi-test.jar
+```
+
+Run the `spark-yarn-task` app using the following command and parameters (we are using a class name of `org.apache.spark.examples.JavaSparkPi` for the `--spark.app-class` parameter in this example)
+
+```
+java -jar spark-yarn-task-{version}.jar --spark.app-class=org.apache.spark.examples.JavaSparkPi \
+  --spark.app-jar=hdfs:///app/spark/spark-pi-test.jar \
+  --spark.assembly-jar=hdfs:///app/spark/spark-assembly-1.6.3-hadoop2.6.0.jar \
+  --spring.hadoop.fsUri=hdfs://{hadoop-host}:8020 --spring.hadoop.resourceManagerHost={hadoop-host} \
+  --spring.hadoop.resourceManagerPort=8032 --spring.hadoop.jobHistoryAddress={hadoop-host}:100020 \
+  --spark.app-args=10
+```
+
+Then review the stdout log for the launched Hadoop YARN container to make sure the app completed.
 
 //end::ref-doc[]
