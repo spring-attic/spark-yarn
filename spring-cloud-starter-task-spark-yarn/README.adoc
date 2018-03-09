@@ -60,4 +60,7 @@ java -jar spark-yarn-task-{version}.jar --spark.app-class=org.apache.spark.examp
 
 Then review the stdout log for the launched Hadoop YARN container to make sure the app completed.
 
+== Contributing
+
+We welcome contributions! Follow this https://github.com/spring-cloud-task-app-starters/app-starters-release/blob/master/spring-cloud-task-app-starters-docs/src/main/asciidoc/contributing.adoc[link] for more information on how to contribute.
 //end::ref-doc[]
